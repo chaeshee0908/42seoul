@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_range.c                                         :+:      :+:    :+:   */
+/*   ft_boolean.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schae <schae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/08 14:39:04 by schae             #+#    #+#             */
-/*   Updated: 2021/03/08 23:12:44 by schae            ###   ########.fr       */
+/*   Created: 2021/03/08 21:05:31 by schae             #+#    #+#             */
+/*   Updated: 2021/03/08 21:15:04 by schae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef FT_BOOLEAN_H
+# define FT_BOOLEAN_H
 
-int	*ft_range(int min, int max)
-{
-	int	size;
-	int	*arr;
-	int	i;
+#include <unistd.h>
 
-	i = 0;
-	size = max - min;
-	if (size <= 0)
-		return (0);
-	arr = (int *)malloc(sizeof(int) * size + 1);
-	arr[size] = 0;
-	while (i < size)
-	{
-		arr[i++] = min;
-		min++;
-	}
-	return (arr);
-}
+#define TRUE 1
+#define FALSE 0
+#define SUCCESS 0
+#define EVEN_MSG "I have an even number of arguments.\n"
+#define ODD_MSG "I have an odd number of arguments.\n"
+#define EVEN(nbr) (nbr % 2 == 0)
+
+typedef int t_bool;
+
+#endif

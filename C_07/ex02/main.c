@@ -4,7 +4,7 @@ int ft_ultimate_range(int **range, int min, int max);
 
 int main()
 {
-	int **range;
+	int arr[] = {0, 1, 2, 3, 4};
 
-	printf("%d\n", ft_ultimate_range(range, min, num))
+	printf("%d\n", ft_ultimate_range((int **)&arr, 3, 7));
 }
