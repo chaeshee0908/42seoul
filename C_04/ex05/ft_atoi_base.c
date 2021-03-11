@@ -6,24 +6,25 @@
 /*   By: schae <schae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 19:31:27 by schae             #+#    #+#             */
-/*   Updated: 2021/03/05 19:31:31 by schae            ###   ########.fr       */
+/*   Updated: 2021/03/10 10:59:10 by schae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	b_sign(char *str)
+int is_valid(char *str)
 {
-	while (*str)
-	{
-		if (*str == '+' || *str == '-')
-			return (1);
-		str++;
-	}
-	return (0);
-}
+	char	*ptr;
+	int i;
+	int j;
 
-int	b_same(char *str)
-{
-	int i, j;
+	ptr = str;
+	while (*ptr)
+	{
+		if (*ptr == '+' || *ptr == '-')
+			return (0);
+		if (*ptr == ' ' || (*ptr >= 9 && *ptr <= 13))
+			return (0);
+		ptr++;
+	}
 	i = 0;
 	while (str[i])
 	{
@@ -31,23 +32,12 @@ int	b_same(char *str)
 		while (str[j])
 		{
 			if (str[i] == str[j])
-				return (1);
+				return (0);
 			j++;
 		}
 		i++;
 	}
-	return (0);
-}
-
-int	b_space(char *str)
-{
-	while (*str)
-	{
-		if (*str == ' ' || (*str >= 9 && *str <= 13))
-			return (1);
-		str++;
-	}
-	return (0);
+	return (1);
 }
 
 int	ft_strlen(char *str)
@@ -55,31 +45,44 @@ int	ft_strlen(char *str)
 	int	num;
 
 	num = 0;
-	while (*str)
-	{
-		if (*str == '+' || *str == '-')
-			return (1);
-		str++;
-	}
-	return (0);
+	while (*(str++))
+		num++;
+	return (num);
 }
 
-int	ft_atoi(char *str, int b)
+int	find_base_index(char c, char *base)
 {
-	int	sign;
-	int	result;
+	int	index;
 
-	sign = 1;
+	index = 0;
+	while (base[index])
+	{
+		if (base[index] == c)
+			return (index);
+		index++;
+	}
+	return (-1);
+}
+
+int	ft_atoi(char *str, char *base, int b)
+{
+	int	result;
+	int sign;
+
 	result = 0;
 	while (*str == ' ' || (*str >= 9 && *str <= 13))
 		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '-' || *str == '+')
+	sign = 1;
+	while (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			sign *= -1;
 		str++;
+	}
 	while (*str >= '0' && *str <= '9')
 	{
-		result = result * b + *str - '0';
+		if (find_base_index(*str, base) >= 0)
+			result = result * b + find_base_index(*str, base);
 		str++;
 	}
 	return (result * sign);
@@ -90,9 +93,9 @@ int	ft_atoi_base(char *str, char *base)
 	int	b;
 	int	nbr;
 
-	if (*base == '\0' || b_sign(base) || b_same(base) || b_space(base))
+	if (*base == '\0' || !is_valid(base))
 		return (0);
 	b = ft_strlen(base);
-	nbr = ft_atoi(str, b);
+	nbr = ft_atoi(str, base, b);
 	return (nbr);
 }

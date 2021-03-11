@@ -6,13 +6,13 @@
 /*   By: schae <schae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 01:54:26 by schae             #+#    #+#             */
-/*   Updated: 2021/03/05 16:43:28 by schae            ###   ########.fr       */
+/*   Updated: 2021/03/10 10:13:55 by schae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int	b_same(char *str)
+int		b_same(char *str)
 {
 	int i, j;
 	i = 0;
@@ -29,7 +29,6 @@ int	b_same(char *str)
 	}
 	return (0);
 }
-
 int		b_sign(char *str)
 {
 	while (*str)
@@ -54,21 +53,18 @@ int		ft_strlen(char *str)
 	return (num);
 }
 
-void	ft_putnbr(int nb, int b)
+void	ft_putnbr(int nb, int b, char *base)
 {
 	char	c;
 
 	if (nb >= b)
 	{
-		ft_putnbr(nb / b, b);
-		ft_putnbr(nb % b, b);
+		ft_putnbr(nb / b, b, base);
+		ft_putnbr(nb % b, b, base);
 	}
 	else
 	{
-		if (nb > 9)
-			c = nb + '0' + 7;
-		else
-			c = nb + '0';
+		c = base[nb];
 		write(1, &c, 1);
 	}
 }
@@ -85,5 +81,5 @@ void	ft_putnbr_base(int nbr, char *base)
 	}
 	if (*base == '\0' || b_sign(base) || b_same(base))
 		return ;
-	ft_putnbr(nbr, b);
+	ft_putnbr(nbr, b, base);
 }
