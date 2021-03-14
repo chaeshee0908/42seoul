@@ -8,7 +8,7 @@ int main()
 	int i;
 
 	i = 0;
-	arr = ft_range(1,49);
+	arr = ft_range(3,1);
 	while (arr[i])
 		printf("%d ", arr[i++]);
 	printf("\n");

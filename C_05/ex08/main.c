@@ -5,6 +5,6 @@ int ft_ten_queens_puzzle(void);
 int main()
 {
 	int ret;
-	ret = ft_ten_queens_puzzle(10);
+	ret = ft_ten_queens_puzzle();
 	printf("ret : %d\n", ret);
 }
