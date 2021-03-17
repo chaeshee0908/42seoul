@@ -1,57 +1,61 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bsq.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinseonghee <jinseonghee@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/17 11:58:26 by jinseonghee       #+#    #+#             */
+/*   Updated: 2021/03/17 21:27:29 by jinseonghee      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef DECLARATION_H
-# define DECLARATION_H
+#ifndef BSQ_H
+# define BSQ_H
 
-# include <stdio.h>
 # include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include <string.h>
 
 # define BUF_SIZE 20000000
 
 typedef struct	s_map_info
 {
-	int		nb_l;
-	int		nb_c;
-	char	vide;
+	int		row;
+	int		col;
+	char	empty;
 	char	obs;
-	char	plein;
+	char	fill;
 	int		nb_char;
 }				t_map_info;
 
-int				ft_check_first_line(char *buf); //첫 줄에 유효한 줄인지 체크
-int				ft_is_printable(char c); //출력가능한 문자인지 체크
+int				ft_check_fl(char *buf, int i, char c);
+int				ft_is_printable(char c);
 
-void			init_res_nmax_emax(int **res); 
-void			init_doubletab(int ***tab, int nb_c);
-void			init_tab(int **tab, int nb_c);
-void			switch_init_tab(int	**tab0, int **tab1);
-void			ft_free_doubletab(int ***tab);
+void			init_doublemap(int ***map, int nb_c);
+void			init_map(int **map, int nb_c);
+void			switch_init_map(int	**map0, int **map1);
+void			ft_free_doublemap(int ***map);
 
-char			*get_buf(char *path, int buf_size);
+char			*get_buf(char *path);
 t_map_info		*get_map_info(char **buf);
-int				ft_min_close(int **tab, int i, int j);
-void			ft_fill_tab(char *buf, int *ij, t_map_info *data, int ***tab);
-void			ft_fill_res(int **res, int ***tab, int *ij, t_map_info *data);
+int				ft_min_close(int **map, int i, int j);
+void			ft_fill_map(char *buf, int *ij, t_map_info *info, int ***map);
+void			ft_fill_res(int **res, int ***map, int *ij, t_map_info *info);
 
 int				ft_atoi(char *str);
 char			*ft_itoa(int nbr);
-void			ft_fill_nbr(char **res, int nbr, int rang);
-int				ft_str_is_numeric(char c);
+void			ft_fill_nbr(char **res, int nbr, int idx);
+int				ft_is_number(char c);
 int				ft_strlen(char *str);
 
-void			print_map(char *buf, int *res, t_map_info *data);
+void			print_map(char *buf, int *res, t_map_info *info);
 int				print_global(char *buf);
 
-char			*get_buf_standard(void);
+char			*get_buf_std(void);
 char			*get_buf_file(char *path);
 
-int				ft_map_error_int(void);
-char			*ft_map_error_char(void);
-
-void			ft_parcours(char *buf, t_map_info *data, int *ij, int **res);
+void			ft_make_map(char *buf, t_map_info *info, int *ij, int **res);
+void			init_res(int **res);
 
 #endif
